@@ -12,6 +12,7 @@ namespace Circus_Trein.Models
         public Train(int[] aAnimals) 
         {
             Animals = new List<Animal>();
+            Wagons = new List<Wagon>();
             MakeAnimals(aAnimals);
             SortAnimals();
             Console.WriteLine(aAnimals);
@@ -22,22 +23,81 @@ namespace Circus_Trein.Models
 
             Console.WriteLine(Animals);
             List<int> somethings = new List<int>();
+            List<Animal> wagonAnimals = new List<Animal>();
+            //AddWagon();
+            Console.WriteLine(Animals);
             foreach (Animal animal in Animals)
             {
-                List<Animal> wagonAnimals = new List<Animal>();
+                Console.WriteLine(animal);
 
                 if (animal.Type == Type.Carnivore && animal.Size == Size.Large)
                 {
-
+                    
+                    
                     wagonAnimals.Add(animal);
 
+                    AddWagon(wagonAnimals, true);
                     Console.WriteLine(animal);
                     somethings.Add((int)animal.Size);
+                    Console.WriteLine(somethings);
+                    wagonAnimals = new List<Animal>();
+                }Console.WriteLine("asdad");
+                if (animal.Type == Type.Carnivore && animal.Size != Size.Large)
+                {
+                    wagonAnimals.Add(animal);
+                    AddWagon(wagonAnimals, false);
+                    wagonAnimals = new List<Animal>();
                 }
-                //AddWagon(wagonAnimals);
+                if (animal.Type == Type.Herbivore)
+                {
+                    bool sorted = false;
+                    foreach (var wagon in Wagons)
+                    {
 
-                Console.WriteLine(animal.Type);
-                Console.WriteLine(animal.Size);
+                        if (!wagon.IsFull && !sorted)
+                        {
+
+                            int AvailableSpace = wagon.GetAvailableSpace();
+                            Console.WriteLine(AvailableSpace);
+                            if (AvailableSpace >= (int)animal.Size)
+                            {
+                                Console.WriteLine("space available");
+                                if (wagon.ContainsCarnivore() < (int)animal.Size)
+                                {
+                                    Console.WriteLine("no bigger carnivore");
+                                    wagon.Animals.Add(animal);
+                                    sorted = true;
+                                }
+                            }
+
+                        }
+                        if (wagon.GetAvailableSpace() == 0)
+                        {
+                            Console.WriteLine("no more space");
+                            wagon.IsFull = true;
+                        }
+                        if (wagon.GetAvailableSpace() <= 3 && wagon.ContainsCarnivore() == 3)
+                        {
+                            Console.WriteLine("no more space because of carnivore");
+                            wagon.IsFull = true;
+                        }
+                    }
+                    if (!sorted)
+                    {
+                        Console.WriteLine("add herbivore to new wagon");
+                        wagonAnimals.Add(animal);
+                        AddWagon(wagonAnimals, false);
+                        wagonAnimals = new List<Animal>();
+                    }
+                    for (int i = Wagons.Count - 1; i >= 0; i--)
+                    {
+                        if (Wagons[i].Animals == null)
+                        {
+                            Wagons.RemoveAt(i);
+                        }
+                    }
+                }
+                Console.WriteLine(Wagons);
             }
             Console.WriteLine(somethings);
             Console.WriteLine(Wagons);
@@ -80,10 +140,24 @@ namespace Circus_Trein.Models
             Animal aAnimal = new Animal(aType, aSize);
             Animals.Add(aAnimal);
         }
+        void AddWagon()
+        {
+            Wagon aWagon = new Wagon(false);
+            Wagons.Add(aWagon);
+        }
         void AddWagon(List<Animal> aAnimals)
         {
             Wagon aWagon = new Wagon(aAnimals);
             Wagons.Add(aWagon);
+        }
+        void AddWagon(List<Animal> aAnimals, bool aIsFull)
+        {
+            Wagon aWagon = new Wagon(aAnimals, aIsFull);
+            Wagons.Add(aWagon);
+        }
+        void DisplayWagons() 
+        {
+
         }
 
     }

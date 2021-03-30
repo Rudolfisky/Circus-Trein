@@ -32,6 +32,7 @@ namespace Circus_Trein.Controllers
             int[] animals = { CS, CM, CL, HS, HM, HL };
             ViewBag.TotalAnimals = animals.Sum();
             Train train = new Train(animals);
+            ViewBag.TotalWagons = train.Wagons.Count;
 
             return View("Index");
         }
