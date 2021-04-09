@@ -1,24 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Circus_Trein.Models
+namespace Logic
 {
-    public class Train
+    class Sort
     {
-        public List<Wagon> Wagons { get; }
-        public List<Animal> Animals { get; }
-        public Train(int[] aAnimals) 
-        {
-            Animals = new List<Animal>();
-            Wagons = new List<Wagon>();
-            MakeAnimals(aAnimals);
-            SortAnimals();
-            Console.WriteLine(aAnimals);
-
-        }
-        void SortAnimals() 
+        void SortAnimals()
         {
 
             Console.WriteLine(Animals);
@@ -32,8 +22,8 @@ namespace Circus_Trein.Models
 
                 if (animal.Type == Type.Carnivore && animal.Size == Size.Large)
                 {
-                    
-                    
+
+
                     wagonAnimals.Add(animal);
 
                     AddWagon(wagonAnimals, true);
@@ -41,7 +31,8 @@ namespace Circus_Trein.Models
                     somethings.Add((int)animal.Size);
                     Console.WriteLine(somethings);
                     wagonAnimals = new List<Animal>();
-                }Console.WriteLine("asdad");
+                }
+                Console.WriteLine("asdad");
                 if (animal.Type == Type.Carnivore && animal.Size != Size.Large)
                 {
                     wagonAnimals.Add(animal);
@@ -135,7 +126,7 @@ namespace Circus_Trein.Models
                 i++;
             }
         }
-        void AddAnimal(Type aType, Size aSize) 
+        void AddAnimal(Type aType, Size aSize)
         {
             Animal aAnimal = new Animal(aType, aSize);
             Animals.Add(aAnimal);
@@ -155,10 +146,5 @@ namespace Circus_Trein.Models
             Wagon aWagon = new Wagon(aAnimals, aIsFull);
             Wagons.Add(aWagon);
         }
-        void DisplayWagons() 
-        {
-
-        }
-
     }
 }

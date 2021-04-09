@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Circus_Trein.Models
+namespace Logic
 {
-    public enum Type
+    public class AnimalForm
     {
-        Herbivore,
-        Carnivore
+
     }
 }

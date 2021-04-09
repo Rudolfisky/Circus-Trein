@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Logic;
+using ClassLibrary1;
 
 namespace Circus_Trein.Controllers
 {
@@ -30,8 +32,10 @@ namespace Circus_Trein.Controllers
         public IActionResult AnimalForm(int CS, int CM, int CL, int HS, int HM, int HL)
         {
             int[] animals = { CS, CM, CL, HS, HM, HL };
+            // Train train = Sort.SortAnimals(animals)
             ViewBag.TotalAnimals = animals.Sum();
             Train train = new Train(animals);
+            Class1.Help();
             ViewBag.TotalWagons = train.Wagons.Count;
 
             return View("Index");

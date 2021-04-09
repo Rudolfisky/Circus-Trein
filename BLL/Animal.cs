@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Circus_Trein.Models
+namespace Logic
 {
     public class Animal
     {
@@ -13,6 +13,10 @@ namespace Circus_Trein.Models
         {
             Type = aType;
             Size = aSize;
+        }
+        public override string ToString()
+        {
+            return Size.ToString() + "-" + Type.ToString();
         }
     }
 }
